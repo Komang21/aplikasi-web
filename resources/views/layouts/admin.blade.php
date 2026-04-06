@@ -2,8 +2,11 @@
 <html lang="en">
   <!--begin::Head-->
   <head>
+    <!-- Font Awesome 5 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>AdminLTE v4 | Dashboard</title>
+
     <!--begin::Accessibility Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <meta name="color-scheme" content="light dark" />
@@ -82,7 +85,11 @@
       @include("layouts.admin.sidebar")
       <!--end::Sidebar-->
       <!--begin::App Main-->
-    
+ <!--begin::App Main-->
+<div class="app-main">
+    @yield('content')
+</div>
+<!--end::App Main-->
       <!--end::App Main-->
       <!--begin::Footer-->
      @include("layouts.admin.footer")

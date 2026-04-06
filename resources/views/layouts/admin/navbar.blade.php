@@ -1,4 +1,4 @@
- <nav class="app-header navbar navbar-expand bg-body">
+<nav class="app-header navbar navbar-expand bg-primary navbar-dark">
         <!--begin::Container-->
         <div class="container-fluid">
           <!--begin::Start Navbar Links-->
@@ -8,8 +8,8 @@
                 <i class="bi bi-list"></i>
               </a>
             </li>
-            <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Home</a></li>
-            <li class="nav-item d-none d-md-block"><a href="#" class="nav-link">Contact</a></li>
+<li class="nav-item d-none d-md-block"><a href="{{ route('admin.home') }}" class="nav-link">Home</a></li>
+<li class="nav-item d-none d-md-block"><a href="{{ route('admin.contact') }}" class="nav-link">Contact</a></li>
           </ul>
           <!--end::Start Navbar Links-->
           <!--begin::End Navbar Links-->
@@ -33,7 +33,7 @@
                   <div class="d-flex">
                     <div class="flex-shrink-0">
                       <img
-                        src="./assets/img/user1-128x128.jpg"
+                        src="{{ asset('storage/foto.jpg') }}"
                         alt="User Avatar"
                         class="img-size-50 rounded-circle me-3"
                       />
@@ -59,7 +59,7 @@
                   <div class="d-flex">
                     <div class="flex-shrink-0">
                       <img
-                        src="./assets/img/user8-128x128.jpg"
+                        src="{{ asset('storage/foto.jpg') }}"
                         alt="User Avatar"
                         class="img-size-50 rounded-circle me-3"
                       />
@@ -85,7 +85,7 @@
                   <div class="d-flex">
                     <div class="flex-shrink-0">
                       <img
-                        src="./assets/img/user3-128x128.jpg"
+                        src="{{ asset('storage/foto.jpg') }}"
                         alt="User Avatar"
                         class="img-size-50 rounded-circle me-3"
                       />
@@ -95,7 +95,7 @@
                         Nora Silvester
                         <span class="float-end fs-7 text-warning">
                           <i class="bi bi-star-fill"></i>
-                        </span>
+                        ></span>
                       </h3>
                       <p class="fs-7">The subject goes here</p>
                       <p class="fs-7 text-secondary">
@@ -150,23 +150,23 @@
             <li class="nav-item dropdown user-menu">
               <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                 <img
-                  src="./assets/img/user2-160x160.jpg"
+                  src="{{ asset('storage/foto.jpg') }}"
                   class="user-image rounded-circle shadow"
                   alt="User Image"
                 />
-                <span class="d-none d-md-inline">Alexander Pierce</span>
+                <span class="d-none d-md-inline">Komang Riski</span>
               </a>
               <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                 <!--begin::User Image-->
                 <li class="user-header text-bg-primary">
                   <img
-                    src="./assets/img/user2-160x160.jpg"
+                    src="{{ asset('storage/foto.jpg') }}"
                     class="rounded-circle shadow"
                     alt="User Image"
                   />
                   <p>
-                    Alexander Pierce - Web Developer
-                    <small>Member since Nov. 2023</small>
+                    Komang Riski - Web Developer
+                    <small>Member since marrt. 2026</small>
                   </p>
                 </li>
                 <!--end::User Image-->
@@ -184,7 +184,10 @@
                 <!--begin::Menu Footer-->
                 <li class="user-footer">
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
-                  <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
+                  <a href="{{ route('logout') }}" class="btn btn-default btn-flat float-end" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                      @csrf
+                  </form>
                 </li>
                 <!--end::Menu Footer-->
               </ul>
