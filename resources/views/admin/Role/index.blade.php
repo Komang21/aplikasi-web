@@ -23,21 +23,31 @@
                 <tr>
                     <th width="80">No</th>
                     <th>Nama Role</th>
+                    <th>Permission</th>
                     <th width="200">Aksi</th>
                 </tr>
             </thead>
 
             <tbody>
-
-                @forelse ($roles as $key => $role)
+                @forelse ($roles as $role)
                 <tr>
-
-                    <td>{{ $key + 1 }}</td>
+                    <td>{{ $loop->iteration }}</td>
 
                     <td>{{ $role->name }}</td>
 
                     <td>
+                        @if($role->permissions->count())
+                            @foreach($role->permissions as $permission)
+                                <span class="badge bg-primary">
+                                    {{ $permission->name }}
+                                </span>
+                            @endforeach
+                        @else
+                            <span class="text-muted">Tidak ada permission</span>
+                        @endif
+                    </td>
 
+                    <td>
                         <a href="{{ route('admin.role.edit', $role->id) }}"
                            class="btn btn-warning btn-sm">
                             Edit
@@ -55,21 +65,17 @@
                                     onclick="return confirm('Yakin ingin menghapus role ini?')">
                                 Hapus
                             </button>
-
                         </form>
-
                     </td>
-
                 </tr>
 
                 @empty
                 <tr>
-                    <td colspan="3" class="text-center">
+                    <td colspan="4" class="text-center">
                         Belum ada data role
                     </td>
                 </tr>
                 @endforelse
-
             </tbody>
 
         </table>

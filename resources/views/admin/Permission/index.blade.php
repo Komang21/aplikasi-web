@@ -26,52 +26,33 @@
                     <th width="200">Aksi</th>
                 </tr>
             </thead>
-
             <tbody>
-
                 @forelse ($permissions as $key => $permission)
                 <tr>
-
                     <td>{{ $key + 1 }}</td>
-
                     <td>{{ $permission->name }}</td>
-
                     <td>
-
                         <a href="{{ route('admin.permission.edit', $permission->id) }}"
-                           class="btn btn-warning btn-sm">
-                            Edit
-                        </a>
+                           class="btn btn-warning btn-sm">Edit</a>
 
                         <form action="{{ route('admin.permission.destroy', $permission->id) }}"
-                              method="POST"
-                              style="display:inline-block">
-
+                              method="POST" style="display:inline-block">
                             @csrf
                             @method('DELETE')
-
                             <button type="submit"
                                     class="btn btn-danger btn-sm"
                                     onclick="return confirm('Yakin ingin menghapus permission ini?')">
                                 Hapus
                             </button>
-
                         </form>
-
                     </td>
-
                 </tr>
-
                 @empty
                 <tr>
-                    <td colspan="3" class="text-center">
-                        Belum ada data permission
-                    </td>
+                    <td colspan="3" class="text-center">Belum ada data permission</td>
                 </tr>
                 @endforelse
-
             </tbody>
-
         </table>
 
     </div>

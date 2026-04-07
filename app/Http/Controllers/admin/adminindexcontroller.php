@@ -7,9 +7,11 @@ use App\Models\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Attributes\Middleware; 
 
 class AdminIndexController extends Controller
 {
+   #[Middleware('permission:dashboard-view')]
    public function index()
 {
     $totalUser = User::count();
@@ -34,3 +36,4 @@ class AdminIndexController extends Controller
     ));
 }
 }
+

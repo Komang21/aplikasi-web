@@ -355,7 +355,7 @@
           <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" required autocomplete="new-password">
           <label for="password">Kata Sandi</label>
           <div class="input-line"></div>
-          <i class="bi bi-lock-fill input-icon"></i>
+          <i class="bi bi-eye-fill toggle-password input-icon" data-target="password" id="toggle-password"></i>
         </div>
 
         <!-- Confirm Password -->
@@ -363,7 +363,7 @@
           <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" required autocomplete="new-password">
           <label for="password_confirmation">Konfirmasi Kata Sandi</label>
           <div class="input-line"></div>
-          <i class="bi bi-lock input-icon"></i>
+          <i class="bi bi-eye-fill toggle-password input-icon" data-target="password_confirmation" id="toggle-password-confirm"></i>
         </div>
 
         <!-- Register Button -->
@@ -383,6 +383,39 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Password Toggle Functionality -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleIcons = document.querySelectorAll('.toggle-password');
+      
+      toggleIcons.forEach(icon => {
+        icon.addEventListener('click', function() {
+          const targetId = this.getAttribute('data-target');
+          const passwordInput = document.getElementById(targetId);
+          const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+          
+          passwordInput.setAttribute('type', type);
+          
+          // Toggle icon
+          if (type === 'password') {
+            this.classList.remove('bi-eye-slash-fill');
+            this.classList.add('bi-eye-fill');
+          } else {
+            this.classList.remove('bi-eye-fill');
+            this.classList.add('bi-eye-slash-fill');
+          }
+          
+          // Smooth animation
+          this.style.transform = 'scale(0.9)';
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 150);
+        });
+      });
+    });
+  </script>
+
   <script>
     // Ripple effect untuk register
     document.querySelectorAll('.register-btn, .form-control').forEach(el => {

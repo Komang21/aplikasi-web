@@ -1,11 +1,14 @@
-# Task Progress: Fix Root Route Redirect for php artisan serve
+# Fix Middleware Permission Errors - TODO
 
-## TODO Steps:
-- [x] 1. Create TODO.md with plan breakdown
-- [x] 2. Edit routes/web.php to update root route logic
-- [x] 3. Test the changes: php artisan route:clear && php artisan serve
-- [x] 4. Verify redirect works for guest (to /login) and auth user (to /admin/dashboard)
-- [x] 5. Complete task and cleanup
+## Steps:
+- [ ] Step 1: Verify/update app/Models/User.php with HasRoles trait
+- [x] Step 2: Create database/seeders/PermissionSeeder.php (permissions, roles, assign to users)
+- [x] Step 3: Update database/seeders/DatabaseSeeder.php to call PermissionSeeder
+- [x] Step 4: Run `php artisan migrate:fresh --seed` 
+- [x] Step 5: Run `php artisan permission:cache-reset`
+- [ ] Step 6: Test /admin/user access with admin@example.com/admin123
 
-**Status:** Plan approved. Proceeding with edits.
-
+**Users to seed:**
+- admin@example.com (pw: admin123, role: admin)
+- karyawan@example.com (pw: karyawan123, role: karyawan) 
+- kasir@example.com (pw: kasir123, role: kasir)

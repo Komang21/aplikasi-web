@@ -6,21 +6,25 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Foundation\Attributes\Middleware;
 
 class RoleController extends Controller
 {
+    #[Middleware('permission:lihat role')]
     public function index()
     {   
-        $roles = Role::latest()->get();
+        $roles = Role::with('permissions')->latest()->get();
         return view('admin.role.index', compact('roles'));
     }
 
+    #[Middleware('permission:tambah role')]
     public function create()
     {
         $permissions = Permission::all();
         return view('admin.role.create', compact('permissions'));
     }
 
+    #[Middleware('permission:tambah role')]
     public function store(Request $request)
     {
         $request->validate([
@@ -39,6 +43,7 @@ class RoleController extends Controller
             ->with('success', 'Role berhasil ditambahkan');
     }
 
+    #[Middleware('permission:edit role')]
     public function edit(Role $role)
     {
         $permissions = Permission::all();
@@ -47,6 +52,7 @@ class RoleController extends Controller
         return view('admin.role.edit', compact('role', 'permissions', 'rolePermissions'));
     }
 
+    #[Middleware('permission:edit role')]
     public function update(Request $request, Role $role)
     {
         $request->validate([
@@ -63,6 +69,7 @@ class RoleController extends Controller
             ->with('success', 'Role berhasil diupdate');
     }
 
+    #[Middleware('permission:hapus role')]
     public function destroy(Role $role)
     {
         $role->delete();
@@ -71,3 +78,4 @@ class RoleController extends Controller
             ->with('success', 'Role berhasil dihapus');
     }
 }
+

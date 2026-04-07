@@ -14,8 +14,8 @@
 
             <div class="mb-3">
                 <label>Nama</label>
-                <input type="text" name="nama" 
-                       value="{{ $user->nama }}" 
+                <input type="text" name="name" 
+                       value="{{ $user->name }}" 
                        class="form-control" required>
             </div>
 
@@ -29,6 +29,15 @@
             <div class="mb-3">
                 <!--<label>Password (Kosongkan jika tidak diubah)</label>-->
                 <input type="password" name="password" class="form-control">
+            </div>
+
+            <div class="mb-3">
+                <label>Role</label>
+                <select name="role" class="form-control">
+                    @foreach($roles as $role)
+                    <option value="{{ $role->id }}" {{ $user->roles->contains($role->id) ? 'selected' : '' }}>{{ $role->name }}</option>
+                    @endforeach
+                </select>
             </div>
 
             <button class="btn btn-primary">Update</button>

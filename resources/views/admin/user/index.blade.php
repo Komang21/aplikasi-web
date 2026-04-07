@@ -24,6 +24,7 @@
                     <th>No</th>
                     <th>Nama</th>
                     <th>Email</th>
+                    <th>Role</th>
                     <th width="150">Aksi</th>
                 </tr>
             </thead>
@@ -33,6 +34,7 @@
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
+                    <td>{{ $user->roles->pluck('name')->implode(', ') ?: 'No Role' }}</td>
                     <td>
                         <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-warning btn-sm">
                             Edit

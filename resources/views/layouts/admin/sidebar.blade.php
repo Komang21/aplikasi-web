@@ -33,8 +33,8 @@
 <nav class="sidebar sidebar-dark bg-primary">
     <ul class="nav flex-column">
 
-        {{-- Dashboard --}}
-        
+        {{-- Dashboard - Admin only --}}
+        @can('dashboard-view')
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('admin.index') ? 'active' : '' }}" 
                href="{{ route('admin.index') }}">
@@ -42,8 +42,10 @@
                 <span class="ms-2">Dashboard</span>
             </a>
         </li>
+        @endcan
 
-        {{-- User --}}
+        {{-- User - Admin only --}}
+        @can('lihat user')
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('admin.user.*') ? 'active' : '' }}" 
                href="{{ route('admin.user.index') }}">
@@ -51,8 +53,10 @@
                 <span class="ms-2">User</span>
             </a>
         </li>
+        @endcan
 
-        {{-- Role --}}
+        {{-- Role - Admin only --}}
+        @can('lihat role')
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('admin.role.*') ? 'active' : '' }}" 
                href="{{ route('admin.role.index') }}">
@@ -60,8 +64,10 @@
                 <span class="ms-2">Role</span>
             </a>
         </li>
+        @endcan
 
-        {{-- Permission --}}
+        {{-- Permission - Admin only --}}
+        @can('lihat permission')
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('admin.permission.*') ? 'active' : '' }}" 
                href="{{ route('admin.permission.index') }}">
@@ -69,6 +75,29 @@
                 <span class="ms-2">Permission</span>
             </a>
         </li>
+        @endcan
+
+        {{-- Barang --}}
+        @can('barang-view')
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('admin.barang.*') ? 'active' : '' }}" 
+               href="{{ route('admin.barang.index') }}">
+                <i class="fas fa-boxes"></i>
+                <span class="ms-2">Data Barang</span>
+            </a>
+        </li>
+        @endcan
+
+        {{-- Penjualan --}}
+        @can('penjualan-view')
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('admin.penjualan.*') ? 'active' : '' }}" 
+               href="{{ route('admin.penjualan.index') }}">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="ms-2">Penjualan</span>
+            </a>
+        </li>
+        @endcan
 
     </ul>
 </nav>

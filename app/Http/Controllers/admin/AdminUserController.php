@@ -1,52 +1,64 @@
 <?php
 
-namespace App\Http\Controllers\Admin; // huruf A besar (best practice)
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
+use Illuminate\Foundation\Attributes\Middleware;
 
 class AdminUserController extends Controller
 {
+    #[Middleware('permission:lihat user')]
     public function index()
     {
-        $users = User::all();
+        $users = User::with('roles')->get();
         return view('admin.user.index', compact('users'));
     }
 
+    #[Middleware('permission:tambah user')]
     public function create()
     {
-        return view('admin.user.create');
+        $roles = Role::all();
+        return view('admin.user.create', compact('roles'));
     }
 
+    #[Middleware('permission:tambah user')]
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6'
+            'password' => 'required|min:6',
+            'role' => 'required|exists:roles,id'
         ]);
 
-        User::create([
-            'name' => $request->name, // ✅ GANTI DI SINI
+        $user = User::create([
+            'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password) // ✅ WAJIB HASH
+            'password' => Hash::make($request->password)
         ]);
+        $user->roles()->sync([ (int) $request->role ]);
 
         return redirect()->route('admin.user.index');
     }
 
+    #[Middleware('permission:edit user')]
     public function edit(User $user)
     {
-        return view('admin.user.edit', compact('user'));
+        $roles = Role::all();
+        return view('admin.user.edit', compact('user', 'roles'));
     }
 
+    #[Middleware('permission:edit user')]
     public function update(Request $request, User $user)
     {
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $user->id,
+            'role' => 'sometimes|exists:roles,id'
         ]);
 
         $data = [
@@ -55,14 +67,18 @@ class AdminUserController extends Controller
         ];
 
         if ($request->password) {
-            $data['password'] = Hash::make($request->password); // ✅ HASH JUGA
+            $data['password'] = Hash::make($request->password);
         }
 
         $user->update($data);
+        if ($request->role) {
+            $user->roles()->sync([ (int) $request->role ]);
+        }
 
         return redirect()->route('admin.user.index');
     }
 
+    #[Middleware('permission:hapus user')]
     public function destroy($id)
     {
         $user = User::findOrFail($id);
@@ -71,3 +87,4 @@ class AdminUserController extends Controller
         return redirect()->back()->with('success', 'User berhasil dihapus');
     }
 }
+

@@ -18,11 +18,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Simpan</button>
-
-            <a href="{{ route('admin.permission.index') }}" class="btn btn-secondary">
-                Kembali
-            </a>
-
+            <a href="{{ route('admin.permission.index') }}" class="btn btn-secondary">Kembali</a>
         </form>
 
     </div>
